@@ -2,12 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello
-  namespace: <NAMESPACE>
+  namespace: skouba
 spec:
   selector:
     matchLabels:
       app: hello
-  replicas: 2
+  replicas: 4
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
 
       containers:
         - name: hello
-          image: pstast/hello-kubernetes:1.0
+          image: pstast/hello-kubernetes:2.0
           ports:
             - containerPort: 8080
 
@@ -52,7 +52,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: hello
-  namespace: <NAMESPACE>
+  namespace: skouba
 spec:
   ports:
     - protocol: TCP
@@ -67,7 +67,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello
-  namespace: <NAMESPACE>
+  namespace: skouba
   annotations:
     alb.ingress.kubernetes.io/group.name: exprm-k8s-exprm1
     alb.ingress.kubernetes.io/load-balancer-name: exprm-k8s-exprm1
@@ -86,7 +86,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: <NAMESPACE>.exprm.gopay.com
+    - host: skouba.exprm.gopay.com
       http:
         paths:
           - path: /
